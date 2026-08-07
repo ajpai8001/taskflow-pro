@@ -47,7 +47,7 @@ def test_create_task_success():
     body = response.json()
     assert body["title"] == "샘플 작업"
     assert body["status"] == "todo"
-    assert body["due_at"] == "2026-12-31T18:00:00"
+    assert body["due_at"] == "2026-12-31T18:00:00Z"
     assert "description" in body
 
 
