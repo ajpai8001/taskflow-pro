@@ -1,9 +1,11 @@
 import logging
+from pathlib import Path
 
 from fastapi import APIRouter, Depends, FastAPI, HTTPException, Response, status
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 
 from app import crud, schemas
@@ -78,3 +80,6 @@ def delete_task(task_id: int, db: Session = Depends(get_db)):
 
 
 app.include_router(api_router)
+
+FRONTEND_DIR = Path(__file__).resolve().parent.parent.parent / "frontend"
+app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
